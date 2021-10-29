@@ -10,7 +10,6 @@ const ApiData = () => {
   useEffect(() => {
     const getData = async () => {
       let res = await axios(url);
-      console.log(res.data);
       if (res && res.data) {
         setData(res.data);
       }
@@ -28,7 +27,8 @@ const ApiData = () => {
   }, [isFetching]);
 
   useEffect(() => {
-    window.addEventListener("scroll", handleScroll);
+    document.body.addEventListener("scroll", handleScroll);  //for mobile 
+    window.addEventListener("scroll", handleScroll);  //for desktop
     return () => window.removeEventListener("scroll", handleScroll);
   }, [data]);
 
@@ -49,10 +49,9 @@ const ApiData = () => {
 
   function handleScroll() {
     if (
-      window.innerHeight + document.documentElement.scrollTop===
+      window.innerHeight + document.documentElement.scrollTop>=
       document.documentElement.offsetHeight
     ) {
-      console.log("touched bottom: ");
       if(data && data.length>0){
         setIsFetching(true);
         
